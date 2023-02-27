@@ -1,5 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import CardRepo from './components/CardRepo'
+import { Grid } from '@mui/material';
 import SearchBar from './components/SearchBar';
 
 
@@ -18,8 +20,12 @@ function App() {
       <BoxWrapper>
 
       <SearchBar />
-
-
+      
+      <Grid container spacing={4}>
+      <CardRepo />
+      <CardRepo />
+      <CardRepo />
+      </Grid>
 
      </BoxWrapper>
 
