@@ -3,12 +3,11 @@ import Box from '@mui/material/Box';
 import CardRepo from './components/CardRepo'
 import { Grid } from '@mui/material';
 import SearchBar from './components/SearchBar';
+import CircularProgress from '@mui/material/CircularProgress';
+import NotFound from './components/NotFound';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getRepos } from './store/repos/reposSlice';
-import CircularProgress from '@mui/material/CircularProgress';
-
-
 
 
 const BoxWrapper = styled(Box)(({ theme }) => ({
@@ -18,7 +17,6 @@ const BoxWrapper = styled(Box)(({ theme }) => ({
   
 }));
 
-
 function App() {
 
   const dispatch = useDispatch();
@@ -26,7 +24,6 @@ function App() {
   const [search, setSearch] = useState("");
   useEffect(() => {
     dispatch(getRepos(search))
-    console.log(repos)
   }, [dispatch, search]);
 
   return (
@@ -40,11 +37,12 @@ function App() {
           <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
             <CircularProgress />
           </Box>:
-          
+
           <Grid container spacing={4}>
             {
-            repos && repos.map((repo, index) => (
-            
+            repos && repos.length > 0 ?
+              repos.map((repo, index) => (
+              
               <CardRepo 
                 key={index}
                 name={repo.name}
@@ -53,15 +51,16 @@ function App() {
                 url={repo.url}
               />
 
-              ))}
+              )):
+              <NotFound />
+            
+            }
+
           </Grid>
         }
-
      </BoxWrapper>
-
     </Box>
 
-  
   );
 }
 

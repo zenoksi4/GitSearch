@@ -5,8 +5,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 
-
-
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -46,8 +44,6 @@ const Search = styled('div')(({ theme }) => ({
 
     },
   }));
-
-
 
 const SearchBar = ({setSearch}) => {
   const [query, setQuery] = useState('');

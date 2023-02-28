@@ -12,8 +12,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
     
   }));
 
-
-
 const CardRepo = ({name, stars, latestUpdate, url}) => {
     const card = (
       <>
