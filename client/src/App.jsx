@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getPlanes())
+    console.log(repos);
   }, [dispatch]);
 
   return (
@@ -32,9 +33,17 @@ function App() {
         <SearchBar />
         
         <Grid container spacing={4}>
-          <CardRepo />
-          <CardRepo />
-          <CardRepo />
+          {
+          repos && repos.map((repo) => (
+          
+            <CardRepo 
+              name={repo.name}
+              stars={repo.stars}
+              latestUpdate={repo.update_repo}
+              url={repo.url}
+            />
+
+            ))}
         </Grid>
 
      </BoxWrapper>

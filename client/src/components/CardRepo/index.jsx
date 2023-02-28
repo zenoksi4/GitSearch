@@ -12,26 +12,28 @@ const StyledCard = styled(Card)(({ theme }) => ({
     
   }));
 
-const card = (
-    <>
-    <CardContent >
-      <Typography sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}  variant="h5" component="div">
-        Name12312312312312312312312312313123
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        Stars: 1233
-      </Typography>
-      <Typography variant="body2">
-        latest updates: 1212312312
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </>
-)
 
-const CardRepo = () => {
+
+const CardRepo = ({name, stars, latestUpdate, url}) => {
+    const card = (
+      <>
+      <CardContent >
+        <Typography sx={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}  variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography variant='div' sx={{ mb: 1.5 }} color="text.secondary">
+          Stars: {stars}
+        </Typography>
+        <Typography sx={{ paddingTop: 2}} variant="body2">
+          latest update: {`${new Date(latestUpdate).toUTCString()}`}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" target={"_blank"} href={url} >Learn More</Button>
+      </CardActions>
+      </>
+    ) 
+
     return (
         <Grid item xs={12} sm={6} md={4} sx={{ minWidth: 200 }}>
         <StyledCard variant="outlined">{card}</StyledCard>
