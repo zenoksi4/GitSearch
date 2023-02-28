@@ -19,13 +19,13 @@ function App() {
     <Box sx={{ minHeight: '100vh' }}>
       <BoxWrapper>
 
-      <SearchBar />
-      
-      <Grid container spacing={4}>
-      <CardRepo />
-      <CardRepo />
-      <CardRepo />
-      </Grid>
+        <SearchBar />
+        
+        <Grid container spacing={4}>
+          <CardRepo />
+          <CardRepo />
+          <CardRepo />
+        </Grid>
 
      </BoxWrapper>
 
