@@ -4,8 +4,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getRepos } from '../../store/repos/reposSlice';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -50,14 +49,13 @@ const Search = styled('div')(({ theme }) => ({
 
 
 
-const SearchBar = () => {
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch()
+const SearchBar = ({setSearch}) => {
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    const timeOutId = setTimeout(() => dispatch(getRepos(search)), 1000);
+    const timeOutId = setTimeout(() => setSearch(query), 500);
     return () => clearTimeout(timeOutId);
-  }, [search]);
+  }, [query]);
 
     return (
         <AppBar sx={{ borderRadius: '10px', marginBottom: 3 }} position="static">
@@ -67,7 +65,7 @@ const SearchBar = () => {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              onChange={(e) => {setSearch(e.target.value)}}
+              onChange={(e) => {setQuery(e.target.value)}}
               placeholder="Search repo..."
               inputProps= {{ 'aria-label': 'search' }}
             />

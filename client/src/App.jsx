@@ -6,6 +6,8 @@ import SearchBar from './components/SearchBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getRepos } from './store/repos/reposSlice';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 
@@ -21,32 +23,39 @@ function App() {
 
   const dispatch = useDispatch();
   const { repos, isLoading } = useSelector((state) => state.repos);
-
+  const [search, setSearch] = useState("");
   useEffect(() => {
-    dispatch(getRepos())
-
-  }, [dispatch]);
+    dispatch(getRepos(search))
+    console.log(repos)
+  }, [dispatch, search]);
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <BoxWrapper>
 
-        <SearchBar />
-        
-        <Grid container spacing={4}>
-          {
-          repos && repos.map((repo, index) => (
-          
-            <CardRepo 
-              key={index}
-              name={repo.name}
-              stars={repo.stars}
-              latestUpdate={repo.update_repo}
-              url={repo.url}
-            />
+        <SearchBar setSearch={setSearch}/>
 
-            ))}
-        </Grid>
+        {
+          isLoading ?
+          <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+            <CircularProgress />
+          </Box>:
+          
+          <Grid container spacing={4}>
+            {
+            repos && repos.map((repo, index) => (
+            
+              <CardRepo 
+                key={index}
+                name={repo.name}
+                stars={repo.stars}
+                latestUpdate={repo.update_repo}
+                url={repo.url}
+              />
+
+              ))}
+          </Grid>
+        }
 
      </BoxWrapper>
 
