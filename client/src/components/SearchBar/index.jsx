@@ -3,6 +3,9 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getRepos } from '../../store/repos/reposSlice';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -34,21 +37,28 @@ const Search = styled('div')(({ theme }) => ({
   
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
+    width: '100%',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
       
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
       width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '20ch',
-      },
+
     },
-    
   }));
 
 
+
 const SearchBar = () => {
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const timeOutId = setTimeout(() => dispatch(getRepos(search)), 1000);
+    return () => clearTimeout(timeOutId);
+  }, [search]);
+
     return (
         <AppBar sx={{ borderRadius: '10px', marginBottom: 3 }} position="static">
         <Toolbar >
@@ -57,10 +67,12 @@ const SearchBar = () => {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onChange={(e) => {setSearch(e.target.value)}}
               placeholder="Search repo..."
               inputProps= {{ 'aria-label': 'search' }}
             />
           </Search>
+
         </Toolbar>
       </AppBar>
       

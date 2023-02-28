@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import reposService from '../services/reposService';
 
-export const getPlanes = createAsyncThunk('GET_REPOS', async (search = '', thunkAPI) => {
+export const getRepos = createAsyncThunk('GET_REPOS', async (search = '', thunkAPI) => {
     try {
         return await reposService.getRepos(search);
 
@@ -19,16 +19,16 @@ const reposSlice = createSlice({
         message: ''
     },
     extraReducers: (builder) => {
-        builder.addCase(getPlanes.pending, (state) => {
+        builder.addCase(getRepos.pending, (state) => {
             state.isLoading = true
         });
 
-        builder.addCase(getPlanes.fulfilled, (state, action) => {
+        builder.addCase(getRepos.fulfilled, (state, action) => {
             state.isLoading = false;
             state.repos = action.payload.items
         });
 
-        builder.addCase(getPlanes.rejected, (state, action) => {
+        builder.addCase(getRepos.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload.message;

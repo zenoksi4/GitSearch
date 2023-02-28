@@ -4,8 +4,9 @@ import CardRepo from './components/CardRepo'
 import { Grid } from '@mui/material';
 import SearchBar from './components/SearchBar';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getPlanes } from './store/repos/reposSlice';
+import { useEffect, useState } from 'react';
+import { getRepos } from './store/repos/reposSlice';
+
 
 
 const BoxWrapper = styled(Box)(({ theme }) => ({
@@ -22,8 +23,8 @@ function App() {
   const { repos, isLoading } = useSelector((state) => state.repos);
 
   useEffect(() => {
-    dispatch(getPlanes())
-    console.log(repos);
+    dispatch(getRepos())
+
   }, [dispatch]);
 
   return (
@@ -34,9 +35,10 @@ function App() {
         
         <Grid container spacing={4}>
           {
-          repos && repos.map((repo) => (
+          repos && repos.map((repo, index) => (
           
             <CardRepo 
+              key={index}
               name={repo.name}
               stars={repo.stars}
               latestUpdate={repo.update_repo}
