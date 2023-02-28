@@ -1,7 +1,7 @@
+import axios from 'axios'
 
-
-const getRepos = async () => {
-    const repos = await axios.get('/repositories');
+const getRepos = async (search) => {
+    const repos = await axios.get(`/repositories?search=${search}`);
 
     return repos.data;
 }

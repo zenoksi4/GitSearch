@@ -10,7 +10,7 @@ const getRepo = async (req, res) => {
 
         res.status(200).json(
             {
-                repos: reposItems
+                items: reposItems
             })
         
     } catch (error) {

@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import CardRepo from './components/CardRepo'
 import { Grid } from '@mui/material';
 import SearchBar from './components/SearchBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getPlanes } from './store/repos/reposSlice';
 
 
 const BoxWrapper = styled(Box)(({ theme }) => ({
@@ -14,6 +17,13 @@ const BoxWrapper = styled(Box)(({ theme }) => ({
 
 
 function App() {
+
+  const dispatch = useDispatch();
+  const { repos, isLoading } = useSelector((state) => state.repos);
+
+  useEffect(() => {
+    dispatch(getPlanes())
+  }, [dispatch]);
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
